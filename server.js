@@ -10,6 +10,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
+/** setup CORS. The whole point... */
+import cors from 'cors';
+app.use(cors({
+  origin: FRONTEND_HOST  // or use '*' for testing
+}));
+
 //Setup .env for production or development
 const envFile =
   process.env.NODE_ENV === "production" ? ".env" : ".env.development";
@@ -23,6 +29,22 @@ const FRONTEND_HOST = process.env.FRONTEND_HOST;
 //API endpoints
 const getquotesURL = "https://zenquotes.io/api/authors";
 const quoteofdayURL = "https://zenquotes.io/api/today";
+
+//logger for incoming requests
+app.use((req, res, next) => {
+  console.log(`Incoming: ${req.method} ${req.url}`);
+  next();
+});
+
+/**
+ * logger for response to requests
+ */
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log(`[${res.statusCode}] ${req.method} ${req.originalUrl}`);
+  });
+  next();
+});
 
 /**
  * Get 'many' quotes proxy route.
@@ -61,22 +83,13 @@ app.get("/api/quoteofday", async (req, res) => {
         res.status(response.status).json(data); 
     }
     res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
+    console.log(FRONTEND_HOST)
     res.json(data); 
 
   } catch (error) {
     console.error("Error fetchinng quote of day", error);
     res.status(500).json({ error: "Failed ot fetch quote of day" });
   }
-});
-
-/**
- * Simple logger for debugging
- */
-app.use((req, res, next) => {
-  res.on('finish', () => {
-    console.log(`[${res.statusCode}] ${req.method} ${req.originalUrl}`);
-  });
-  next();
 });
 
 app.listen(PORT, () => {
