@@ -9,7 +9,7 @@
 
 const express = require("express");
 const dotenv = require("dotenv");
-import cors from 'cors';
+const cors = require("cors")
 
 //Setup .env for production or development
 const envFile =
