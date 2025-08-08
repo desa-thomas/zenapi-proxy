@@ -34,6 +34,7 @@ app.get("/api/quote", async (req, res) => {
 
     //If server response is not okay, forward error
     if (!response.ok) {
+
       res.status(response.status).json(data);
     }
 
@@ -56,6 +57,7 @@ app.get("/api/quoteofday", async (req, res) => {
     const data = await response.json(); 
 
     if(!response.ok){
+        
         res.status(response.status).json(data); 
     }
     res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
@@ -65,6 +67,16 @@ app.get("/api/quoteofday", async (req, res) => {
     console.error("Error fetchinng quote of day", error);
     res.status(500).json({ error: "Failed ot fetch quote of day" });
   }
+});
+
+/**
+ * Simple logger for debugging
+ */
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log(`[${res.statusCode}] ${req.method} ${req.originalUrl}`);
+  });
+  next();
 });
 
 app.listen(PORT, () => {
