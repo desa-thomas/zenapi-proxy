@@ -9,12 +9,7 @@
 
 const express = require("express");
 const dotenv = require("dotenv");
-
-/** setup CORS. The whole point... */
 import cors from 'cors';
-app.use(cors({
-  origin: FRONTEND_HOST  // or use '*' for testing
-}));
 
 //Setup .env for production or development
 const envFile =
@@ -29,6 +24,10 @@ const FRONTEND_HOST = process.env.FRONTEND_HOST;
 //API endpoints
 const getquotesURL = "https://zenquotes.io/api/authors";
 const quoteofdayURL = "https://zenquotes.io/api/today";
+
+app.use(cors({
+  origin: FRONTEND_HOST 
+}));
 
 //logger for incoming requests
 app.use((req, res, next) => {
@@ -83,7 +82,6 @@ app.get("/api/quoteofday", async (req, res) => {
         res.status(response.status).json(data); 
     }
     res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
-    console.log(FRONTEND_HOST)
     res.json(data); 
 
   } catch (error) {
