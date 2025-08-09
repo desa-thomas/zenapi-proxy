@@ -104,7 +104,7 @@ if (hostname.includes("pi")) {
 };
 
 https.createServer(options, app).listen(PORT, ()=>{
-  console.log(`Proxy server running on port ${port} (HTTPS)`)
+  console.log(`Proxy server running on port ${PORT} (HTTPS)`)
 })
 }
 //development server
