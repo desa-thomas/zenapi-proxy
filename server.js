@@ -11,7 +11,7 @@ const express = require("express");
 const cors = require("cors")
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = 1984; 
 const FRONTEND_HOSTS = ["http://localhost:5500", "https://words-of-wonder.tdesa.dev","http://words-of-wonder.tdesa.dev",  "http://tdesa.duckdns.org:5500"]; 
 
 //API endpoints
