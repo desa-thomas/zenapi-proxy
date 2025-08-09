@@ -99,12 +99,12 @@ app.get("/api/quoteofday", async (req, res) => {
 const hostname = os.hostname();
 if (hostname.includes("pi")) {
   const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/tomsapi.duckdns.org/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/tomsapi.duckdns.org/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/archive/tomsapi.duckdns.org/privkey1.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/archive/tomsapi.duckdns.org/fullchain1.pem'),
 };
 
 https.createServer(options, app).listen(PORT, ()=>{
-  console.log('Proxy server running on port 443 (HTTPS')
+  console.log(`Proxy server running on port ${port} (HTTPS)`)
 })
 }
 //development server
