@@ -18,7 +18,6 @@ const PORT = 1984;
 const FRONTEND_HOSTS = [
   "http://localhost:5500",
   "https://wisewords.tdesa.dev",
-  "http://wisewords.tdesa.dev",
   "http://tdesa.duckdns.org:5500",
 ];
 
@@ -104,7 +103,7 @@ if (hostname.includes("pi")) {
   cert: fs.readFileSync('/etc/letsencrypt/live/tomsapi.duckdns.org/fullchain.pem')
 };
 
-https.createServer(options, app).listen(443, ()=>{
+https.createServer(options, app).listen(PORT, ()=>{
   console.log('Proxy server running on port 443 (HTTPS')
 })
 }
