@@ -17,7 +17,7 @@ const app = express();
 const PORT = 1984;
 const FRONTEND_HOSTS = [
   "http://localhost:5500",
-  "https://words-of-wonder.tdesa.dev",
+  "https://wisewords.tdesa.dev",
   "http://words-of-wonder.tdesa.dev",
   "http://tdesa.duckdns.org:5500",
 ];
@@ -98,7 +98,7 @@ app.get("/api/quoteofday", async (req, res) => {
 
 //load certification if running on my server
 const hostname = os.hostname();
-if (hostname == "hostpi") {
+if (hostname.includes("pi")) {
   const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tomsapi.duckdns.org/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/tomsapi.duckdns.org/fullchain.pem')
