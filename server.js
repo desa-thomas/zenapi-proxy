@@ -8,25 +8,24 @@
  */
 
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors")
 
-//Setup .env for production or development
-const envFile =
-  process.env.NODE_ENV === "production" ? ".env" : ".env.development";
-dotenv.config({ path: envFile });
-console.log("Using env file:", envFile);
-
 const app = express();
-const PORT = process.env.PORT || 6000;
-const FRONTEND_HOST = process.env.FRONTEND_HOST;
+const PORT = process.env.PORT || 3000; 
+const FRONTEND_HOSTS = ["http://localhost:5500", "words-of-wonder.tdesa.dev", "tdesa.duckdns.org:5500"]; 
 
 //API endpoints
-const getquotesURL = "https://zenquotes.io/api/authors";
+const getquotesURL = "https://zenquotes.io/api/quotes";
 const quoteofdayURL = "https://zenquotes.io/api/today";
 
 app.use(cors({
-  origin: FRONTEND_HOST 
+  origin: function (origin, callback) {
+    if (!origin || FRONTEND_HOSTS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
 }));
 
 //logger for incoming requests
@@ -40,7 +39,7 @@ app.use((req, res, next) => {
  */
 app.use((req, res, next) => {
   res.on('finish', () => {
-    console.log(`[${res.statusCode}] ${req.method} ${req.originalUrl}`);
+    console.log(`[${res.statusCode}] ${req.method} ${req.originalUrl} `);
   });
   next();
 });
@@ -48,7 +47,7 @@ app.use((req, res, next) => {
 /**
  * Get 'many' quotes proxy route.
  */
-app.get("/api/quote", async (req, res) => {
+app.get("/api/quotes", async (req, res) => {
   try {
     const response = await fetch(getquotesURL);
     const data = await response.json();
@@ -60,7 +59,7 @@ app.get("/api/quote", async (req, res) => {
     }
 
     //Only allow cors requests from my frontend host (local host, or my github pages)
-    res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
+    // res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
     res.json(data);
 
   } catch (error) {
@@ -81,7 +80,7 @@ app.get("/api/quoteofday", async (req, res) => {
         
         res.status(response.status).json(data); 
     }
-    res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
+    // res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
     res.json(data); 
 
   } catch (error) {
