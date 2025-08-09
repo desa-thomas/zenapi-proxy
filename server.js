@@ -12,7 +12,7 @@ const cors = require("cors")
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
-const FRONTEND_HOSTS = ["http://localhost:5500", "words-of-wonder.tdesa.dev", "tdesa.duckdns.org:5500"]; 
+const FRONTEND_HOSTS = ["http://localhost:5500", "https://words-of-wonder.tdesa.dev","http://words-of-wonder.tdesa.dev",  "http://tdesa.duckdns.org:5500"]; 
 
 //API endpoints
 const getquotesURL = "https://zenquotes.io/api/quotes";
