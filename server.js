@@ -18,7 +18,7 @@ const PORT = 1984;
 const FRONTEND_HOSTS = [
   "http://localhost:5500",
   "https://wisewords.tdesa.dev",
-  "http://words-of-wonder.tdesa.dev",
+  "http://wisewords.tdesa.dev",
   "http://tdesa.duckdns.org:5500",
 ];
 
