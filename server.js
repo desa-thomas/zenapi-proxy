@@ -55,7 +55,7 @@ app.get("/api/quotes", async (req, res) => {
     //If server response is not okay, forward error
     if (!response.ok) {
 
-      res.status(response.status).json(data);
+      return res.status(response.status).json(data);
     }
 
     //Only allow cors requests from my frontend host (local host, or my github pages)
@@ -78,7 +78,7 @@ app.get("/api/quoteofday", async (req, res) => {
 
     if(!response.ok){
         
-        res.status(response.status).json(data); 
+        return res.status(response.status).json(data); 
     }
     // res.setHeader("Access-Control-Allow-Origin", FRONTEND_HOST);
     res.json(data); 
