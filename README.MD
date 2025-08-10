@@ -4,3 +4,5 @@
  
  There are two routes: /api/quote and /api/quoteofday that simply forward the response of the only
  two free api endpoints from zenquotes.
+
+It also caches the quote of the day in memory until it expires.
