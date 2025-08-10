@@ -1,4 +1,4 @@
- Simple proxy server for the zenquotes API.
+ Simple proxy server for the zenquotes API. Used by [Words of Wisdom](https://github.com/desa-thomas/words-of-wisdom)
  
  This was necessay because the api would not enable CORS unless I paid them a trillion dollars </3
  
